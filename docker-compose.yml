@@ -1,0 +1,41 @@
+nn:
+  build:
+    - ./neuralnet
+  links:
+    - db
+    - data
+webscraper:
+  build:
+    - ./webscraper
+  links:
+    - db
+webapp:
+  restart: always
+  build:
+    - ./webapp
+  links: db
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - /www/public
+  volumes_from:
+    - web
+  links:
+    - web:web
+db:
+  restart: always
+  image: mongodb:latest
+  volumes_from:
+    - data
+  ports:
+    - "5432:5432"
+data:
+  restart: no
+  image: postgres:latest
+  volumes:
+    - /var/lib/postgresql
+    - /models
+  command: true
