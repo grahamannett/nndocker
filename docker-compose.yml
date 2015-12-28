@@ -27,15 +27,13 @@ nginx:
     - web:web
 db:
   restart: always
-  image: mongodb:latest
+  image: mongo:latest
   volumes_from:
     - data
   ports:
     - "5432:5432"
 data:
-  restart: no
-  image: postgres:latest
+  image: cogniteev/echo
+  command: echo 'Data Container for Mongo'
   volumes:
-    - /var/lib/postgresql
-    - /models
-  command: true
+    - data/

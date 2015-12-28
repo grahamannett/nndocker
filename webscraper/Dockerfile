@@ -2,9 +2,9 @@ FROM ubuntu:vivid
 
 MAINTAINER grahama
 
-RUN apt-get update && apt-get install -y wget software-properties-common python3 python3-pip python3-psycopg2
+RUN apt-get update && apt-get install -y wget software-properties-common python3 python3-pip
 
-RUN pip3 install youtube-dl google-api-python-client
+RUN pip3 install -r requirements.txt
 
 ADD webscraper src/
 

@@ -1,0 +1,3 @@
+youtube-dl
+google-api-python-client
+pymongo
