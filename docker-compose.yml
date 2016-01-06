@@ -25,6 +25,11 @@ nginx:
     - web
   links:
     - web:web
+data:
+  image: cogniteev/echo
+  command: echo 'Data Container for Mongo'
+  volumes:
+    - data/
 db:
   restart: always
   image: mongo:latest
@@ -32,8 +37,3 @@ db:
     - data
   ports:
     - "5432:5432"
-data:
-  image: cogniteev/echo
-  command: echo 'Data Container for Mongo'
-  volumes:
-    - data/
