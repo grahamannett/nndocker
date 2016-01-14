@@ -17,6 +17,13 @@ Cuda Downloads:
 https://developer.nvidia.com/cuda-downloads
 
 
+setup nvidia-docker plugin
+
+git clone https://github.com/NVIDIA/nvidia-docker
+
+
+NOT SURE IF BELOW STILL IS TRUE:
+
 Notes:
 - I built my own docker image based off this after trying to use the one supported by theano: https://hub.docker.com/r/kaixhin/cuda-theano/~/dockerfile/ due to that one not working for me (not being able to get CUDA support).  Important that you have CUDA stuff installed on bare bones server as well as in the docker image (I think)
 - I use the file nvidia-docker https://raw.githubusercontent.com/NVIDIA/nvidia-docker/master/nvidia-docker provided by Nvidia to use GPU in container but symlink to /usr/local/bin/ in provisioning
