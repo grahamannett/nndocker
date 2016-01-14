@@ -1,4 +1,5 @@
 nn:
+  image: grahama/deep:latest
   build:
     - ./neuralnet
   links:
