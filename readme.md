@@ -1,14 +1,9 @@
 # Neural Niche Docker Config
 
-
-### Using:
-- combination of ubuntu 15.04 (not sure why but think there was a reason at one point) containers with python3.4
-- wanted to use python3.5 for parts but dependencies didn't support it (postgres needs psycopg2)
-
 ![Layout of Current Dockerized Plan](other/layout.png)
 
 ## Docker Container Setup
-### GPU centered stuff
+### GPU/nvidia official stuff
 Using the official Nvidia Dockerfile:
 https://github.com/nvidia/nvidia-docker
 Official Documentation:
@@ -24,19 +19,40 @@ git clone https://github.com/NVIDIA/nvidia-docker
 
 NOT SURE IF BELOW STILL IS TRUE:
 
-Notes:
-- I built my own docker image based off this after trying to use the one supported by theano: https://hub.docker.com/r/kaixhin/cuda-theano/~/dockerfile/ due to that one not working for me (not being able to get CUDA support).  Important that you have CUDA stuff installed on bare bones server as well as in the docker image (I think)
-- I use the file nvidia-docker https://raw.githubusercontent.com/NVIDIA/nvidia-docker/master/nvidia-docker provided by Nvidia to use GPU in container but symlink to /usr/local/bin/ in provisioning
+## Using nvidia-docker
+
+Updated 1/14 since they (nvidia) changed things around.
+```
+git clone https://github.com/NVIDIA/nvidia-docker
+cd nvidia-docker && make install
+nvidia-docker volume setup
+# you may need to symlink nvidia-docker into /usr/local/bin/nvidia-docker (cant remember)
+```
+
+with tmux start nvidia-docker-plugin in one pane and then using NV_GPU='0,1' nvidia-docker run you can bind and use gpu with theano/keras (assuming you specify to use gpu in theanorc or something similar)
+
+<!-- (cant remember exactly) cd tools && make install -->
+
+
 - https://hub.docker.com/r/nvidia/cuda/
 
+## building/running docker images
+
+#### breakdown of Dockerfiles
+
+Using just python 3.4 at the moment
+base image is based off of nvidia/cuda:cudnn but has theano, keras already (will move to grahama/deep:keras later)
+
+#### building
+
 to build:
-sudo docker build -t nnkeras nndocker/
+docker build -t grahama/deep:base dockerbuilds/base
 
-the way to run it is then (well if you want to interactive into):
-sudo GPU=0,1 nvidia run -it nnkeras
+#### running containers w/ gpu
 
+the way to run it is then (for instance with interactive and mounted volume):
+NV_GPU='0,1' nvidia-docker run -it -v $PWD/datafolder:/root/data grahama/deep:base
 
-While I am using different python versions amongst stuff, I should ideally consolidate to one version
 
 
 ## Scraping YouTube

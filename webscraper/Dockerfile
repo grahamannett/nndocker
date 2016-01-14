@@ -1,4 +1,4 @@
-FROM ubuntu:vivid
+FROM ubuntu:latest
 
 MAINTAINER grahama
 
