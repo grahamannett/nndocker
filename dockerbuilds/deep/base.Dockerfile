@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR root
 
-RUN pip3 install setuptools numpy scipy theano keras --upgrade
+RUN pip3 install --upgrade setuptools numpy scipy
