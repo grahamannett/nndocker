@@ -26,7 +26,6 @@ Updated 1/14 since they (nvidia) changed things around.
 git clone https://github.com/NVIDIA/nvidia-docker
 cd nvidia-docker && make install
 nvidia-docker volume setup
-# you may need to symlink nvidia-docker into /usr/local/bin/nvidia-docker (cant remember)
 ```
 
 with tmux start nvidia-docker-plugin in one pane and then using NV_GPU='0,1' nvidia-docker run you can bind and use gpu with theano/keras (assuming you specify to use gpu in theanorc or something similar)
